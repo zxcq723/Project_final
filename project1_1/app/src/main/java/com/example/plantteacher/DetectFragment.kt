@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.detect_fragment.*;
 import java.io.IOException
 
 
-class DetectFragment1 : AppCompatActivity() {
+class DetectFragment : AppCompatActivity() {
     private lateinit var mClassifier: Classifier
     private lateinit var mBitmap: Bitmap
 
@@ -40,22 +40,22 @@ class DetectFragment1 : AppCompatActivity() {
         resources.assets.open(mSamplePath).use {
             mBitmap = BitmapFactory.decodeStream(it)
             mBitmap = Bitmap.createScaledBitmap(mBitmap, mInputSize, mInputSize, true)
-            mPhotoImageView.setImageBitmap(mBitmap)
+            imageView.setImageBitmap(mBitmap)
         }
 
-        mCameraButton.setOnClickListener {
-            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(callCameraIntent, mCameraRequestCode)
-        }
+//        mCameraButton.setOnClickListener {
+//            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            startActivityForResult(callCameraIntent, mCameraRequestCode)
+//        }
 
-        mGalleryButton.setOnClickListener {
+        gallery.setOnClickListener {
             val callGalleryIntent = Intent(Intent.ACTION_PICK)
             callGalleryIntent.type = "image/*"
             startActivityForResult(callGalleryIntent, mGalleryRequestCode)
         }
-        mDetectButton.setOnClickListener {
+        detect.setOnClickListener {
             val results = mClassifier.recognizeImage(mBitmap).firstOrNull()
-            mResultTextView.text= results?.title+"\n Confidence:"+results?.confidence
+            result.text= results?.title+"\n Confidence:"+results?.confidence
 
         }
     }
@@ -69,8 +69,8 @@ class DetectFragment1 : AppCompatActivity() {
                 val toast = Toast.makeText(this, ("Image crop to: w= ${mBitmap.width} h= ${mBitmap.height}"), Toast.LENGTH_LONG)
                 toast.setGravity(Gravity.BOTTOM, 0, 20)
                 toast.show()
-                mPhotoImageView.setImageBitmap(mBitmap)
-                mResultTextView.text= "Your photo image set now."
+                imageView.setImageBitmap(mBitmap)
+                result.text= "Your photo image set now."
             } else {
                 Toast.makeText(this, "Camera cancel..", Toast.LENGTH_LONG).show()
             }
@@ -86,7 +86,7 @@ class DetectFragment1 : AppCompatActivity() {
 
                 println("Success!!!")
                 mBitmap = scaleImage(mBitmap)
-                mPhotoImageView.setImageBitmap(mBitmap)
+                imageView.setImageBitmap(mBitmap)
 
             }
         } else {

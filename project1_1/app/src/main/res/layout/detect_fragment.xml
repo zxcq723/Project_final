@@ -85,7 +85,7 @@
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/gallery"
-                    android:layout_marginLeft="240dp"
+                    android:layout_marginLeft="238dp"
                     android:background="@drawable/buttonedge"
                     android:text="detect"
                     app:backgroundTint="#3A5C2E" />
